@@ -1,0 +1,25 @@
+/* Déjà existant */
+.navbar {
+    -fx-background-color: #2C3E50;
+    -fx-padding: 10px;
+}
+
+.navbar-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 5px 15px;
+    -fx-min-width: 80px;
+    -fx-cursor: hand;
+}
+
+/* Pour les labels au centre */
+.center-label-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+.center-label-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #555;
+}
