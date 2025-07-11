@@ -34,16 +34,26 @@ public class AddFileController {
     @FXML
     private TableColumn<RowData, String> column2;
 
+    @FXML
+    private TableColumn<RowData, String> column3;
+
+    @FXML
+    private TableColumn<RowData, String> column4;
+
     private final ObservableList<RowData> tableData = FXCollections.observableArrayList();
 
     // Classe représentant une ligne du tableau
     public static class RowData {
         private final String col1;
         private final String col2;
+        private final String col3;
+        private final String col4;
 
-        public RowData(String col1, String col2) {
+        public RowData(String col1, String col2, String col3 , String col4) {
             this.col1 = col1;
             this.col2 = col2;
+            this.col3 = col3;
+            this.col4 = col4;
         }
 
         public String getCol1() {
@@ -53,6 +63,13 @@ public class AddFileController {
         public String getCol2() {
             return col2;
         }
+        public String getCol3() {
+            return col3;
+        }
+
+        public String getCol4() {
+            return col4;
+        }
     }
 
     // Initialisation des colonnes du tableau
@@ -60,8 +77,15 @@ public class AddFileController {
     public void initialize() {
         column1.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getCol1()));
         column2.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getCol2()));
+        column3.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getCol3()));
+        column4.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getCol4()));
         tableView.setItems(tableData);
+
+        // Cacher la table au démarrage
+        tableView.setVisible(false);
+        tableView.setManaged(false);
     }
+
 
     @FXML
     protected void onDownloadButtonClick() {
@@ -83,6 +107,10 @@ public class AddFileController {
                 // Lire le fichier et remplir le tableau
                 readExcelFile(filePath);
 
+                // Afficher la table
+                tableView.setVisible(true);
+                tableView.setManaged(true);
+
                 // Déplacer le fichier dans le dossier resources
                 Path resourcesDir = Path.of("src/main/resources");
                 File sourceFile = new File(filePath);
@@ -99,6 +127,7 @@ public class AddFileController {
             Text.setText("Aucun fichier sélectionné.");
         }
     }
+
 
     private void readExcelFile(String filePath) throws IOException {
         tableData.clear();
@@ -118,14 +147,18 @@ public class AddFileController {
 
             int currentRow = 0;
             for (Row row : sheet) {
-                if (currentRow >= 5) { // À partir de la ligne 6
+                if (currentRow >= 2) {
                     Cell col1 = row.getCell(0);
                     Cell col2 = row.getCell(1);
+                    Cell col3 = row.getCell(148);
+                    Cell col4 = row.getCell(149);
 
                     if (col2 != null && !col2.toString().trim().isEmpty()) {
                         String value1 = (col1 != null) ? col1.toString() : "";
                         String value2 = col2.toString();
-                        tableData.add(new RowData(value1, value2));
+                        String value3 = (col3 != null) ? col3.toString() : "";
+                        String value4 = (col4 != null) ? col4.toString() : "";
+                        tableData.add(new RowData(value1, value2, value3, value4));
                     }
                 }
                 currentRow++;
@@ -134,4 +167,5 @@ public class AddFileController {
             workbook.close();
         }
     }
+
 }
