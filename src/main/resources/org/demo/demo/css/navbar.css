@@ -1,6 +1,6 @@
-/* Style pour la barre de navigation */
+/* Style pour la barre de navigation avec dégradé inspiré du logo Capgemini */
 .navbar {
-    -fx-background-color: #2C3E50;
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #0072BC, #00AEEF); /* bleu clair à bleu foncé */
     -fx-padding: 10px;
 }
 
@@ -13,4 +13,3 @@
     -fx-min-width: 80px;
     -fx-cursor: hand; /* change le curseur au survol */
 }
-

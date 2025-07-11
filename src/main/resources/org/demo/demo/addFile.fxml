@@ -31,6 +31,8 @@
         <columns>
           <TableColumn fx:id="column1" text="Nomenclature" prefWidth="200"/>
           <TableColumn fx:id="column2" text="Dec. PSA" prefWidth="200"/>
+          <TableColumn fx:id="column3" text="Nomenclature" prefWidth="200"/>
+          <TableColumn fx:id="column4" text="Dec. PSA" prefWidth="200"/>
         </columns>
       </TableView>
     </VBox>
