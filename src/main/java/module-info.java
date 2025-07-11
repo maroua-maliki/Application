@@ -4,6 +4,7 @@ module org.demo.demo {
     requires org.apache.poi.poi;
     requires org.apache.poi.ooxml;
     requires org.kordamp.ikonli.javafx;
+    requires java.sql;
 
 
     opens org.demo.demo to javafx.fxml;

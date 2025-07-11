@@ -3,7 +3,7 @@ package org.demo.demo.entities;
 public class Produit {
     private int id;
     private String nom;
-    private String description;
+    private String des;
     private double prixUnitaireProto;
     private double prixUnitaireSerie;
     private int idFichier;
@@ -13,13 +13,13 @@ public class Produit {
         this.idFichier = idFichier;
         this.prixUnitaireSerie = prixUnitaireSerie;
         this.prixUnitaireProto = prixUnitaireProto;
-        this.description = description;
+        this.des = description;
         this.nom = nom;
     }
 
-    public Produit(String nom, String description, double prixUnitaireProto, double prixUnitaireSerie, int idFichier) {
+    public Produit(String nom, String des, double prixUnitaireProto, double prixUnitaireSerie, int idFichier) {
         this.nom = nom;
-        this.description = description;
+        this.des = des;
         this.prixUnitaireProto = prixUnitaireProto;
         this.prixUnitaireSerie = prixUnitaireSerie;
         this.idFichier = idFichier;
@@ -35,7 +35,7 @@ public class Produit {
     }
 
     public String getDescription() {
-        return description;
+        return des;
     }
 
     public double getPrixUnitaireProto() {
@@ -59,7 +59,7 @@ public class Produit {
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.des = description;
     }
 
     public void setPrixUnitaireProto(double prixUnitaireProto) {
