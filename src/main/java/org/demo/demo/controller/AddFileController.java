@@ -33,6 +33,10 @@ public class AddFileController {
     @FXML
     private TableColumn<RowData, String> column4;
 
+    @FXML
+    private Button saveButton;
+
+
     private final ObservableList<RowData> tableData = FXCollections.observableArrayList();
 
     private final AddFileService addFileService = new AddFileService();
@@ -64,9 +68,15 @@ public class AddFileController {
         column4.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getCol4()));
         tableView.setItems(tableData);
 
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
         tableView.setVisible(false);
         tableView.setManaged(false);
+
+        saveButton.setVisible(false);
+        saveButton.setManaged(false);
     }
+
 
     @FXML
     protected void onDownloadButtonClick() {
@@ -91,6 +101,9 @@ public class AddFileController {
 
                 tableView.setVisible(true);
                 tableView.setManaged(true);
+
+                saveButton.setVisible(true);
+                saveButton.setManaged(true);
 
                 addFileService.copyFileToResources(filePath);
 

@@ -15,7 +15,7 @@ public class HelloApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 700, 500);
         Image logo = new Image(getClass().getResourceAsStream("images/cap.png"));
         stage.getIcons().add(logo);
-        stage.setTitle("Application");
+        stage.setTitle("KitChiffre");
         stage.setScene(scene);
         stage.show();
     }

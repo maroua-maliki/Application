@@ -3,10 +3,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.Insets?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="org.demo.demo.controller.AddFileController"
-            stylesheets="@css/navbar.css">
+            stylesheets="@css/addfile.css">
 
   <!-- Top = navbar -->
   <top>
@@ -15,16 +16,23 @@
 
   <!-- Center = contenu principal -->
   <center>
-    <VBox spacing="20" alignment="CENTER">
-      <padding>
+    <VBox styleClass="page-content" spacing="20" alignment="CENTER">
+    <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
       </padding>
 
       <Label fx:id="Text" text="Sélectionnez un fichier..."/>
 
-      <TextField fx:id="filePathField" promptText="Chemin du fichier" editable="false"/>
+      <HBox spacing="10" alignment="CENTER">
+        <TextField fx:id="filePathField" promptText="Chemin du fichier" editable="false"/>
+        <Button onAction="#onDownloadButtonClick" styleClass="icon-button">
+          <graphic>
+            <FontIcon iconLiteral="bi-download" styleClass="download-icon"/>
+          </graphic>
+        </Button>
+      </HBox>
 
-      <Button text="Télécharger un fichier" onAction="#onDownloadButtonClick"/>
+
       <Button text="Ajouter" onAction="#onAddButtonClick"/>
 
       <TableView fx:id="tableView" prefHeight="300" prefWidth="400">
@@ -35,7 +43,7 @@
           <TableColumn fx:id="column4" text="Prix unitaire série (€)" prefWidth="200"/>
         </columns>
       </TableView>
-      <Button text="Enregistrer dans la base de données" onAction="#onSaveToDatabaseClick"/>
+      <Button fx:id="saveButton" text="Enregistrer dans la base de données" onAction="#onSaveToDatabaseClick"/>
     </VBox>
   </center>
 
