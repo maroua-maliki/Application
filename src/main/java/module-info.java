@@ -4,6 +4,7 @@ module org.demo.demo {
     requires org.apache.poi.poi;
     requires org.apache.poi.ooxml;
     requires org.kordamp.ikonli.javafx;
+    requires org.kordamp.ikonli.bootstrapicons;
     requires java.sql;
 
 
