@@ -8,6 +8,7 @@ module org.demo.demo {
 
 
     opens org.demo.demo to javafx.fxml;
+    opens org.demo.demo.entities to javafx.base;
     exports org.demo.demo;
     exports org.demo.demo.controller;
     opens org.demo.demo.controller to javafx.fxml;

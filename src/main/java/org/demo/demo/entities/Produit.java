@@ -7,6 +7,7 @@ public class Produit {
     private double prixUnitaireProto;
     private double prixUnitaireSerie;
     private int idFichier;
+    private String nomFichier; // 🆕 ajouté pour afficher dans TableView
 
     public Produit(int id, int idFichier, double prixUnitaireSerie, double prixUnitaireProto, String description, String nom) {
         this.id = id;
@@ -25,13 +26,13 @@ public class Produit {
         this.idFichier = idFichier;
     }
 
+    // Getters
+    public int getId() {
+        return id;
+    }
 
     public String getNom() {
         return nom;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public String getDescription() {
@@ -50,6 +51,11 @@ public class Produit {
         return idFichier;
     }
 
+    public String getNomFichier() {
+        return nomFichier;
+    }
+
+    // Setters
     public void setId(int id) {
         this.id = id;
     }
@@ -72,5 +78,9 @@ public class Produit {
 
     public void setIdFichier(int idFichier) {
         this.idFichier = idFichier;
+    }
+
+    public void setNomFichier(String nomFichier) {
+        this.nomFichier = nomFichier;
     }
 }

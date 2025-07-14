@@ -23,6 +23,10 @@ public class NavbarController {
     private Button addFileButton;
 
     @FXML
+    private Button searchButton;
+
+
+    @FXML
     public void initialize() {
         // Créer une icône bootstrap "menu" (list)
         FontIcon menuIcon = new FontIcon("bi-list");
@@ -58,5 +62,21 @@ public class NavbarController {
                 ex.printStackTrace();
             }
         });
+
+        searchButton.setOnAction(e -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/demo/demo/Recherche.fxml"));
+                Parent root = loader.load();
+
+                Stage stage = (Stage) searchButton.getScene().getWindow();
+                Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
+                stage.setScene(scene);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+
     }
+
+
 }

@@ -9,4 +9,5 @@
     <Button fx:id="menuButton" styleClass="navbar-button" text="Menu"/>
     <Button fx:id="homeButton" styleClass="navbar-button" text="Accueil"/>
     <Button fx:id="addFileButton" styleClass="navbar-button" text="Ajouter un fichier"/>
+    <Button fx:id="searchButton" styleClass="navbar-button" text="Recherche"/>
 </HBox>
