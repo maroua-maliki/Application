@@ -6,6 +6,8 @@ module org.demo.demo {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.ikonli.bootstrapicons;
     requires java.sql;
+    requires org.apache.pdfbox;
+    requires java.desktop;
 
 
     opens org.demo.demo to javafx.fxml;
@@ -13,4 +15,6 @@ module org.demo.demo {
     exports org.demo.demo;
     exports org.demo.demo.controller;
     opens org.demo.demo.controller to javafx.fxml;
+    exports org.demo.demo.config;
+    opens org.demo.demo.config to javafx.fxml;
 }

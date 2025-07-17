@@ -1,6 +1,6 @@
 package org.demo.demo.entities;
 
-public class Produit {
+public class ProduitExcel {
     private int id;
     private String nom;
     private String des;
@@ -9,7 +9,7 @@ public class Produit {
     private int idFichier;
     private String nomFichier; // 🆕 ajouté pour afficher dans TableView
 
-    public Produit(int id, int idFichier, double prixUnitaireSerie, double prixUnitaireProto, String description, String nom) {
+    public ProduitExcel(int id, int idFichier, double prixUnitaireSerie, double prixUnitaireProto, String description, String nom) {
         this.id = id;
         this.idFichier = idFichier;
         this.prixUnitaireSerie = prixUnitaireSerie;
@@ -18,7 +18,7 @@ public class Produit {
         this.nom = nom;
     }
 
-    public Produit(String nom, String des, double prixUnitaireProto, double prixUnitaireSerie, int idFichier) {
+    public ProduitExcel(String nom, String des, double prixUnitaireProto, double prixUnitaireSerie, int idFichier) {
         this.nom = nom;
         this.des = des;
         this.prixUnitaireProto = prixUnitaireProto;

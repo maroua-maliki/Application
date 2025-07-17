@@ -1,7 +1,11 @@
-.button {
-    -fx-background-color: #1976d2;
-    -fx-text-fill: white;
-    -fx-background-radius: 4;
+.page-content .button {
+    -fx-background-color: #00AEEF;
+        -fx-text-fill: white;
+        -fx-font-weight: bold;
+        -fx-padding: 5px 20px;
+        -fx-background-radius: 5px;
+        -fx-cursor: hand;
 }
-
-
+.page-content .button:hover {
+    -fx-background-color: #0072BC;
+}

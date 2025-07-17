@@ -1,15 +1,24 @@
 package org.demo.demo.services;
 
-import org.demo.demo.dao.ProduitDAO;
-import org.demo.demo.entities.Produit;
+import org.demo.demo.dao.ProduitExcelDAO;
+import org.demo.demo.entities.ProduitExcel;
+import org.demo.demo.entities.ProduitPdf;
 
+import java.io.File;
 import java.util.List;
 
 public class RechercheService {
 
-    private ProduitDAO produitDAO = new ProduitDAO();
+    private ProduitExcelDAO produitExcelDAO = new ProduitExcelDAO();
 
-    public List<Produit> rechercherProduitsParDescription(String description) {
-        return produitDAO.rechercherParDescription(description);
+    public List<ProduitExcel> rechercherProduitsParDescription(String description) {
+        return produitExcelDAO.rechercherParDescription(description);
     }
+
+    public List<ProduitPdf> rechercherDansPDF(String reference) {
+        File dossierPDF = new File("src\\main\\resources\\pdf"); // ou Path dynamique
+        PDFReaderService pdfService = new PDFReaderService();
+        return pdfService.rechercherProduitsDansPDF(reference, dossierPDF);
+    }
+
 }

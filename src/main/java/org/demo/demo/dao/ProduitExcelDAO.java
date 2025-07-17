@@ -1,7 +1,7 @@
 package org.demo.demo.dao;
 
-import org.demo.demo.DatabaseUtil;
-import org.demo.demo.entities.Produit;
+import org.demo.demo.config.DatabaseUtil;
+import org.demo.demo.entities.ProduitExcel;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,29 +10,29 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProduitDAO {
+public class ProduitExcelDAO {
 
-    public void save(Produit produit) throws SQLException {
-        String sql = "INSERT INTO produit (nom, des, prix_unitaire_proto, prix_unitaire_serie, id_fichier) VALUES (?, ?, ?, ?, ?)";
+    public void save(ProduitExcel produitExcel) throws SQLException {
+        String sql = "INSERT INTO produit_excel (nom, des, prix_unitaire_proto, prix_unitaire_serie, id_fichier) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, produit.getNom());
-            stmt.setString(2, produit.getDescription());
-            stmt.setDouble(3, produit.getPrixUnitaireProto());
-            stmt.setDouble(4, produit.getPrixUnitaireSerie());
-            stmt.setInt(5, produit.getIdFichier());
+            stmt.setString(1, produitExcel.getNom());
+            stmt.setString(2, produitExcel.getDescription());
+            stmt.setDouble(3, produitExcel.getPrixUnitaireProto());
+            stmt.setDouble(4, produitExcel.getPrixUnitaireSerie());
+            stmt.setInt(5, produitExcel.getIdFichier());
 
             stmt.executeUpdate();
         }
     }
-    public List<Produit> rechercherParDescription(String description) {
-        List<Produit> produits = new ArrayList<>();
+    public List<ProduitExcel> rechercherParDescription(String description) {
+        List<ProduitExcel> produitExcels = new ArrayList<>();
         String sql = """
         SELECT p.id, p.nom, p.des, p.prix_unitaire_proto, p.prix_unitaire_serie,
                p.id_fichier, f.nom_fichier
-        FROM produit p
+        FROM produit_excel p
         JOIN fichier_produit f ON p.id_fichier = f.id
         WHERE p.des LIKE ?
     """;
@@ -44,7 +44,7 @@ public class ProduitDAO {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Produit produit = new Produit(
+                ProduitExcel produitExcel = new ProduitExcel(
                         rs.getInt("id"),
                         rs.getInt("id_fichier"),
                         rs.getDouble("prix_unitaire_serie"),
@@ -52,14 +52,14 @@ public class ProduitDAO {
                         rs.getString("des"),
                         rs.getString("nom")
                 );
-                produit.setNomFichier(rs.getString("nom_fichier")); // récupère le nom du fichier
-                produits.add(produit);
+                produitExcel.setNomFichier(rs.getString("nom_fichier")); // récupère le nom du fichier
+                produitExcels.add(produitExcel);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return produits;
+        return produitExcels;
     }
 
 }

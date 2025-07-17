@@ -5,9 +5,9 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.demo.demo.dao.FichierDAO;
-import org.demo.demo.dao.ProduitDAO;
+import org.demo.demo.dao.ProduitExcelDAO;
 import org.demo.demo.entities.Fichier;
-import org.demo.demo.entities.Produit;
+import org.demo.demo.entities.ProduitExcel;
 import org.demo.demo.controller.AddFileController.RowData;
 
 import java.io.File;
@@ -63,7 +63,7 @@ public class AddFileService {
     }
 
     public void copyFileToResources(String filePath) throws IOException {
-        Path resourcesDir = Path.of("src/main/resources");
+        Path resourcesDir = Path.of("src/main/resources/excel");
         File sourceFile = new File(filePath);
         Path destinationFile = resourcesDir.resolve(sourceFile.getName());
         Files.copy(sourceFile.toPath(), destinationFile, StandardCopyOption.REPLACE_EXISTING);
@@ -73,19 +73,25 @@ public class AddFileService {
         String nomFichier = new File(filePath).getName();
         String typeFichier = nomFichier.substring(nomFichier.lastIndexOf(".") + 1);
 
-        Fichier fichier = new Fichier(nomFichier, typeFichier);
         FichierDAO fichierDAO = new FichierDAO();
+
+        // ✅ Vérifier si le fichier a déjà été enregistré
+        if (fichierDAO.existsByFilename(nomFichier)) {
+            throw new Exception("Le fichier '" + nomFichier + "' a déjà été ajouté.");
+        }
+
+        Fichier fichier = new Fichier(nomFichier, typeFichier);
         int idFichier = fichierDAO.save(fichier);
 
         if (idFichier == -1) {
             throw new Exception("Échec de l'enregistrement du fichier.");
         }
 
-        ProduitDAO produitDAO = new ProduitDAO();
+        ProduitExcelDAO produitDAO = new ProduitExcelDAO();
         int compteur = 0;
 
         for (RowData row : tableData) {
-            Produit produit = new Produit(
+            ProduitExcel produit = new ProduitExcel(
                     row.getCol1(),
                     row.getCol2(),
                     parseDoubleSafe(row.getCol3()),

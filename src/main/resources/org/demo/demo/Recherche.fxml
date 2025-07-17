@@ -35,15 +35,28 @@
             <Button text="Rechercher" onAction="#onSearchClicked"/>
         </HBox>
 
-            <TableView fx:id="resultTable" prefHeight="300">
-                <columns>
-                    <TableColumn fx:id="nomColumn" text="Nomenclature"/>
-                    <TableColumn fx:id="descriptionColumn" text="Dec. PSA"/>
-                    <TableColumn fx:id="protoColumn" text="Prix unitaire proto (€)"/>
-                    <TableColumn fx:id="serieColumn" text="Prix unitaire série (€)"/>
-                    <TableColumn fx:id="nomFichierColumn" text="Nom du fichier"/>
-                </columns>
-            </TableView>
+            <StackPane prefHeight="300" prefWidth="580">
+                <TableView fx:id="resultTable" prefHeight="300" prefWidth="580">
+                    <columns>
+                        <TableColumn fx:id="nomColumn" text="Nomenclature"/>
+                        <TableColumn fx:id="descriptionColumn" text="Dec. PSA"/>
+                        <TableColumn fx:id="protoColumn" text="Prix unitaire proto (€)"/>
+                        <TableColumn fx:id="serieColumn" text="Prix unitaire série (€)"/>
+                        <TableColumn fx:id="nomFichierColumn" text="Nom du fichier"/>
+                    </columns>
+                </TableView>
+
+                <TableView fx:id="pdfResultTable" prefHeight="300" prefWidth="580">
+                    <columns>
+                        <TableColumn fx:id="pdfRefColumn" text="Référence"/>
+                        <TableColumn fx:id="pdfNomFichierColumn" text="Nom du fichier"/>
+                        <TableColumn fx:id="pdfActionColumn" text="Télécharger"/>
+                    </columns>
+                </TableView>
+
+            </StackPane>
+
+            <Label fx:id="loadingLabel" text="Chargement en cours..." visible="false" style="-fx-text-fill: #555555; -fx-font-style: italic;"/>
 
         </VBox>
     </center>

@@ -1,6 +1,6 @@
 package org.demo.demo.dao;
 
-import org.demo.demo.DatabaseUtil;
+import org.demo.demo.config.DatabaseUtil;
 import org.demo.demo.entities.Fichier;
 
 import java.sql.*;
@@ -24,4 +24,24 @@ public class FichierDAO {
             }
         }
     }
+
+    public boolean existsByFilename(String nomFichier) {
+        String sql = "SELECT COUNT(*) FROM fichier_produit WHERE nom_fichier = ?";
+
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, nomFichier);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
 }
