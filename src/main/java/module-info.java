@@ -8,6 +8,7 @@ module org.demo.demo {
     requires java.sql;
     requires org.apache.pdfbox;
     requires java.desktop;
+    requires tess4j;
 
 
     opens org.demo.demo to javafx.fxml;

@@ -96,7 +96,7 @@ public class AddFileController {
         if (filePath != null && !filePath.isEmpty()) {
             try {
                 tableData.clear();
-                List<RowData> dataFromFile = addFileService.readExcelFile(filePath);
+                List<RowData> dataFromFile = addFileService.lireExcel(filePath);
                 tableData.addAll(dataFromFile);
 
                 tableView.setVisible(true);

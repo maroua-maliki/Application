@@ -5,6 +5,10 @@ public class Fichier {
     private String nom_fichier;
     private String type_fichier;
 
+    public Fichier(){
+
+    }
+
     public Fichier(int id, String nom_fichier, String type_fichier) {
         this.id = id;
         this.nom_fichier = nom_fichier;

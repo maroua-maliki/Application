@@ -7,7 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import org.demo.demo.entities.ProduitExcel;
-import org.demo.demo.entities.ProduitPdf;
+import org.demo.demo.entities.PdfExtrait;
 import org.demo.demo.services.RechercheService;
 
 import java.awt.Desktop;
@@ -42,16 +42,16 @@ public class RechercheController {
 
     // Table PDF
     @FXML
-    private TableView<ProduitPdf> pdfResultTable;
+    private TableView<PdfExtrait> pdfResultTable;
 
     @FXML
-    private TableColumn<ProduitPdf, String> pdfRefColumn;
+    private TableColumn<PdfExtrait, String> pdfRefColumn; // changé en String
 
     @FXML
-    private TableColumn<ProduitPdf, String> pdfNomFichierColumn;
+    private TableColumn<PdfExtrait, String> pdfNomFichierColumn;
 
     @FXML
-    private TableColumn<ProduitPdf, Void> pdfActionColumn;
+    private TableColumn<PdfExtrait, Void> pdfActionColumn;
 
     @FXML
     private Label loadingLabel;
@@ -59,13 +59,11 @@ public class RechercheController {
     @FXML
     private Label noResultLabel;
 
-
-
     private RechercheService recherchService = new RechercheService();
 
     @FXML
     public void initialize() {
-        // Table Excel
+        // Colonnes Excel
         nomColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         nomFichierColumn.setCellValueFactory(new PropertyValueFactory<>("nomFichier"));
@@ -73,10 +71,22 @@ public class RechercheController {
         serieColumn.setCellValueFactory(new PropertyValueFactory<>("prixUnitaireSerie"));
         resultTable.setVisible(false);
 
-        // Table PDF
-        pdfRefColumn.setCellValueFactory(new PropertyValueFactory<>("ref"));
-        pdfNomFichierColumn.setCellValueFactory(new PropertyValueFactory<>("nomFichier"));
+        // Colonnes PDF : ici la colonne référence affiche la valeur du champ searchField (texte recherché)
+        pdfRefColumn.setCellValueFactory(cellData ->
+                new javafx.beans.property.SimpleStringProperty(searchField.getText())
+        );
+
+        pdfNomFichierColumn.setCellValueFactory(cellData -> {
+            PdfExtrait extrait = cellData.getValue();
+            String nomFichier = "";
+            if (extrait.getFichier() != null) {
+                nomFichier = extrait.getFichier().getNom_fichier();
+            }
+            return new javafx.beans.property.SimpleStringProperty(nomFichier);
+        });
+
         addDownloadButtonToTable();
+
         pdfResultTable.setVisible(false);
 
         typeComboBox.setValue("Tout");
@@ -106,14 +116,17 @@ public class RechercheController {
     private void addDownloadButtonToTable() {
         pdfActionColumn.setCellFactory(new Callback<>() {
             @Override
-            public TableCell<ProduitPdf, Void> call(final TableColumn<ProduitPdf, Void> param) {
+            public TableCell<PdfExtrait, Void> call(final TableColumn<PdfExtrait, Void> param) {
                 return new TableCell<>() {
                     private final Button btn = new Button("Télécharger");
 
                     {
                         btn.setOnAction(event -> {
-                            ProduitPdf produit = getTableView().getItems().get(getIndex());
-                            String filename = produit.getNomFichier(); // doit exister dans ProduitPdf
+                            PdfExtrait extrait = getTableView().getItems().get(getIndex());
+                            String filename = "";
+                            if (extrait.getFichier() != null) {
+                                filename = extrait.getFichier().getNom_fichier();
+                            }
                             File file = new File("src/main/resources/pdf/" + filename);
                             if (file.exists()) {
                                 try {
@@ -151,18 +164,16 @@ public class RechercheController {
         String keyword = searchField.getText();
         String type = typeComboBox.getValue();
 
-        // Afficher le message de chargement
         loadingLabel.setVisible(true);
 
-        // Exécuter en arrière-plan pour ne pas bloquer l'UI
         Task<Void> task = new Task<>() {
             List<ProduitExcel> results;
-            List<ProduitPdf> pdfResults;
+            List<PdfExtrait> pdfResults;
 
             @Override
             protected Void call() {
                 results = recherchService.rechercherProduitsParDescription(keyword);
-                pdfResults = recherchService.rechercherDansPDF(keyword);
+                pdfResults = recherchService.rechercherDansExtraitsPDF(keyword);
                 return null;
             }
 
@@ -174,7 +185,7 @@ public class RechercheController {
                 if (!results.isEmpty()) {
                     resultTable.setVisible(true);
                     pdfResultTable.setVisible(false);
-                    noResultLabel.setVisible(false); // Masquer le message
+                    noResultLabel.setVisible(false);
 
                     switch (type) {
                         case "Proto" -> {
@@ -195,17 +206,20 @@ public class RechercheController {
                 } else if (!pdfResults.isEmpty()) {
                     resultTable.setVisible(false);
                     pdfResultTable.setVisible(true);
-                    noResultLabel.setVisible(false); // Masquer le message
+                    noResultLabel.setVisible(false);
                     ajusterLargeurColonnesPdf();
+
+                    // Forcer le rafraîchissement pour que la colonne référence mette à jour sa valeur
+                    pdfResultTable.refresh();
+
                 } else {
                     resultTable.setVisible(false);
                     pdfResultTable.setVisible(false);
-                    noResultLabel.setVisible(true); // Afficher message : aucun résultat
+                    noResultLabel.setVisible(true);
                 }
 
                 loadingLabel.setVisible(false);
             }
-
 
             @Override
             protected void failed() {
@@ -214,8 +228,6 @@ public class RechercheController {
             }
         };
 
-        // Lancer la tâche
         new Thread(task).start();
     }
-
 }

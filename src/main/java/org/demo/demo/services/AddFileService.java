@@ -1,64 +1,24 @@
 package org.demo.demo.services;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.demo.demo.controller.AddFileController.RowData;
 import org.demo.demo.dao.FichierDAO;
 import org.demo.demo.dao.ProduitExcelDAO;
 import org.demo.demo.entities.Fichier;
 import org.demo.demo.entities.ProduitExcel;
-import org.demo.demo.controller.AddFileController.RowData;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
 import java.util.List;
 
 public class AddFileService {
 
-    public List<RowData> readExcelFile(String filePath) throws IOException {
-        List<RowData> tableData = new ArrayList<>();
+    private final ExcelReaderService excelReaderService = new ExcelReaderService();
 
-        try (FileInputStream fis = new FileInputStream(filePath)) {
-            Workbook workbook;
-
-            if (filePath.endsWith(".xlsx")) {
-                workbook = new XSSFWorkbook(fis);
-            } else if (filePath.endsWith(".xls")) {
-                workbook = new HSSFWorkbook(fis);
-            } else {
-                throw new IOException("Format de fichier non pris en charge.");
-            }
-
-            Sheet sheet = workbook.getSheetAt(2); // Troisième feuille
-            int currentRow = 0;
-
-            for (Row row : sheet) {
-                if (currentRow >= 5) {
-                    Cell col1 = row.getCell(0);
-                    Cell col2 = row.getCell(1);
-                    Cell col3 = row.getCell(148);
-                    Cell col4 = row.getCell(149);
-
-                    if (col2 != null && !col2.toString().trim().isEmpty()) {
-                        String value1 = (col1 != null) ? col1.toString() : "";
-                        String value2 = col2.toString();
-                        String value3 = (col3 != null) ? col3.toString() : "";
-                        String value4 = (col4 != null) ? col4.toString() : "";
-                        tableData.add(new RowData(value1, value2, value3, value4));
-                    }
-                }
-                currentRow++;
-            }
-
-            workbook.close();
-        }
-
-        return tableData;
+    public List<RowData> lireExcel(String filePath) throws IOException {
+        return excelReaderService.readExcelFile(filePath);
     }
 
     public void copyFileToResources(String filePath) throws IOException {
@@ -80,7 +40,7 @@ public class AddFileService {
 
         Fichier fichier = new Fichier(nomFichier, typeFichier);
         int idFichier = fichierDAO.save(fichier);
-        fichier.setId(idFichier);  // <-- IMPORTANT : met à jour l'objet avec l'ID généré
+        fichier.setId(idFichier);  // Mise à jour avec l’ID généré
 
         ProduitExcelDAO produitDAO = new ProduitExcelDAO();
         int compteur = 0;
@@ -91,7 +51,7 @@ public class AddFileService {
                     row.getCol2(),
                     parseDoubleSafe(row.getCol3()),
                     parseDoubleSafe(row.getCol4()),
-                    fichier // on passe l'objet fichier avec l'ID correct
+                    fichier
             );
             produitDAO.save(produit);
             compteur++;
