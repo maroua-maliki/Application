@@ -1,6 +1,5 @@
 package org.demo.demo.services;
 
-import javafx.collections.ObservableList;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -75,17 +74,13 @@ public class AddFileService {
 
         FichierDAO fichierDAO = new FichierDAO();
 
-        // ✅ Vérifier si le fichier a déjà été enregistré
         if (fichierDAO.existsByFilename(nomFichier)) {
             throw new Exception("Le fichier a déjà été ajouté.");
         }
 
         Fichier fichier = new Fichier(nomFichier, typeFichier);
         int idFichier = fichierDAO.save(fichier);
-
-        if (idFichier == -1) {
-            throw new Exception("Échec de l'enregistrement du fichier.");
-        }
+        fichier.setId(idFichier);  // <-- IMPORTANT : met à jour l'objet avec l'ID généré
 
         ProduitExcelDAO produitDAO = new ProduitExcelDAO();
         int compteur = 0;
@@ -96,7 +91,7 @@ public class AddFileService {
                     row.getCol2(),
                     parseDoubleSafe(row.getCol3()),
                     parseDoubleSafe(row.getCol4()),
-                    idFichier
+                    fichier // on passe l'objet fichier avec l'ID correct
             );
             produitDAO.save(produit);
             compteur++;
