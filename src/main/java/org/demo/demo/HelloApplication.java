@@ -18,6 +18,7 @@ public class HelloApplication extends Application {
         stage.setTitle("KitChiffre");
         stage.setScene(scene);
         stage.show();
+        fxmlLoaderx
     }
 
     public static void main(String[] args) {
