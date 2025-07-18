@@ -134,9 +134,10 @@ public class AddFileController {
             Text.setText("✅ " + nbProduits + " produit(s) et le fichier ont été enregistrés avec succès !");
             Text.setStyle("-fx-text-fill: green;");
         } catch (Exception e) {
-            e.printStackTrace();
-            Text.setText("❌ Erreur lors de l'enregistrement des données.");
+            String msg = e.getMessage() != null ? e.getMessage() : "Erreur inconnue.";
+            Text.setText("❌ " + msg);
             Text.setStyle("-fx-text-fill: red;");
         }
     }
+
 }

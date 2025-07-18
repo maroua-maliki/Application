@@ -77,7 +77,7 @@ public class AddFileService {
 
         // ✅ Vérifier si le fichier a déjà été enregistré
         if (fichierDAO.existsByFilename(nomFichier)) {
-            throw new Exception("Le fichier '" + nomFichier + "' a déjà été ajouté.");
+            throw new Exception("Le fichier a déjà été ajouté.");
         }
 
         Fichier fichier = new Fichier(nomFichier, typeFichier);

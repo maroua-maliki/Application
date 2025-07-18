@@ -1,30 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="org.demo.demo.controller.HomeController"
             stylesheets="@css/home.css">
 
-    <!-- Navbar incluse en haut -->
+    <!-- Barre de navigation -->
     <top>
-        <fx:include source="navbar.fxml" />
+        <fx:include source="navbar.fxml"/>
     </top>
 
-    <!-- Contenu d'accueil au centre -->
+    <!-- Contenu principal -->
     <center>
-        <VBox alignment="CENTER" spacing="20">
-            <padding>
-                <Insets top="40" left="20" right="20" bottom="20"/>
-            </padding>
+        <AnchorPane styleClass="background-pane">
+            <VBox alignment="CENTER" spacing="40" styleClass="center-container"
+                  AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+                  AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
 
-            <Label text="Bienvenue sur la page d’accueil"
-                   styleClass="center-label-title"/>
-            <Label text="Utilisez la barre de navigation pour explorer l’application."
-                   styleClass="center-label-subtitle"/>
-        </VBox>
+                <Region VBox.vgrow="ALWAYS"/>
+
+                <!-- StackPane pour effet visuel -->
+                <StackPane maxWidth="700" prefWidth="600" styleClass="stack-container">
+
+                    <!-- Bulles décoratives -->
+                    <Circle fx:id="bubble1" radius="150" styleClass="bubble bubble-blue"/>
+                    <Circle fx:id="bubble2" radius="100" styleClass="bubble bubble-light"/>
+
+                    <!-- Carte centrale -->
+                    <VBox styleClass="card" spacing="25" alignment="CENTER">
+
+                        <!-- Titre principal -->
+                        <Label text="Bienvenue dans l’application de chiffrage des Kits"
+                               wrapText="true" styleClass="card-title"/>
+
+                        <!-- Sous-titre -->
+                        <Label text="Simplifiez votre travail : importez, visualisez, analysez vos devis plus efficacement."
+                               wrapText="true" maxWidth="520" styleClass="card-subtitle"/>
+
+                        <!-- Section decorative avec icônes -->
+                        <HBox spacing="40" alignment="CENTER">
+                            <VBox alignment="CENTER" spacing="5">
+                                <Label text="📂" styleClass="icon-style"/>
+                                <Label text="Import" styleClass="icon-label"/>
+                            </VBox>
+                            <VBox alignment="CENTER" spacing="5">
+                                <Label text="🔍" styleClass="icon-style"/>
+                                <Label text="Analyse" styleClass="icon-label"/>
+                            </VBox>
+                            <VBox alignment="CENTER" spacing="5">
+                                <Label text="📊" styleClass="icon-style"/>
+                                <Label text="Résultats" styleClass="icon-label"/>
+                            </VBox>
+                        </HBox>
+
+                    </VBox>
+                </StackPane>
+
+                <Region VBox.vgrow="ALWAYS"/>
+            </VBox>
+        </AnchorPane>
     </center>
-
 </BorderPane>

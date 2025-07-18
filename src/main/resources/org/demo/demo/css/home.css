@@ -1,25 +1,64 @@
-/* Déjà existant */
-.navbar {
-    -fx-background-color: #2C3E50;
-    -fx-padding: 10px;
+/* ======= Fond global ======= */
+.background-pane {
+    -fx-background-color: linear-gradient(to bottom right, #e3f2fd, #ede7f6);
 }
 
-.navbar-button {
-    -fx-background-color: transparent;
-    -fx-text-fill: white;
+/* ======= Conteneur principal ======= */
+.center-container {
+    -fx-padding: 60;
+    -fx-min-width: 600;
+}
+
+/* ======= StackPane contenant la carte et bulles ======= */
+.stack-container {
+    -fx-max-width: 700;
+    -fx-pref-width: 600;
+}
+
+/* ======= Carte centrale ======= */
+.card {
+    -fx-background-color: white;
+    -fx-padding: 40;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 15, 0.3, 0, 5);
+}
+
+/* ======= Titre ======= */
+.card-title {
+    -fx-font-size: 26px;
     -fx-font-weight: bold;
-    -fx-padding: 5px 15px;
-    -fx-min-width: 80px;
-    -fx-cursor: hand;
+    -fx-text-fill: #0d47a1; /* Bleu foncé */
+    -fx-text-alignment: center;
+    -fx-font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Pour les labels au centre */
-.center-label-title {
-    -fx-font-size: 22px;
-    -fx-font-weight: bold;
+/* ======= Sous-titre ======= */
+.card-subtitle {
+    -fx-font-size: 17px;
+    -fx-text-fill: #37474f; /* Gris foncé */
+    -fx-text-alignment: center;
+    -fx-font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.center-label-subtitle {
-    -fx-font-size: 14px;
-    -fx-text-fill: #555;
+/* ======= Bulles décoratives ======= */
+.bubble {
+    -fx-opacity: 0.3;
+}
+.bubble-blue {
+    -fx-fill: #2196f3; /* Bleu vif */
+}
+.bubble-light {
+    -fx-fill: #9c27b0; /* Violet */
+}
+
+/* ======= Icônes / Étiquettes ======= */
+.icon-style {
+    -fx-font-size: 34px;
+}
+
+.icon-label {
+    -fx-font-size: 15px;
+    -fx-text-fill: #263238; /* Gris très foncé */
+    -fx-font-weight: 600;
 }

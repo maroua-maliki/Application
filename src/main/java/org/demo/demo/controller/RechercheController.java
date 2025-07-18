@@ -56,6 +56,10 @@ public class RechercheController {
     @FXML
     private Label loadingLabel;
 
+    @FXML
+    private Label noResultLabel;
+
+
 
     private RechercheService recherchService = new RechercheService();
 
@@ -170,6 +174,7 @@ public class RechercheController {
                 if (!results.isEmpty()) {
                     resultTable.setVisible(true);
                     pdfResultTable.setVisible(false);
+                    noResultLabel.setVisible(false); // Masquer le message
 
                     switch (type) {
                         case "Proto" -> {
@@ -190,15 +195,17 @@ public class RechercheController {
                 } else if (!pdfResults.isEmpty()) {
                     resultTable.setVisible(false);
                     pdfResultTable.setVisible(true);
+                    noResultLabel.setVisible(false); // Masquer le message
                     ajusterLargeurColonnesPdf();
                 } else {
                     resultTable.setVisible(false);
                     pdfResultTable.setVisible(false);
+                    noResultLabel.setVisible(true); // Afficher message : aucun résultat
                 }
 
-                // Masquer le message
                 loadingLabel.setVisible(false);
             }
+
 
             @Override
             protected void failed() {

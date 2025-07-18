@@ -35,8 +35,10 @@
             <Button text="Rechercher" onAction="#onSearchClicked"/>
         </HBox>
 
+            <Label fx:id="noResultLabel" text="Aucun résultat trouvé." visible="false" style="-fx-text-fill: red;" />
+
             <StackPane prefHeight="300" prefWidth="580">
-                <TableView fx:id="resultTable" prefHeight="300" prefWidth="580">
+                <TableView fx:id="resultTable" prefHeight="300" prefWidth="580" styleClass="results-table">
                     <columns>
                         <TableColumn fx:id="nomColumn" text="Nomenclature"/>
                         <TableColumn fx:id="descriptionColumn" text="Dec. PSA"/>
@@ -46,13 +48,14 @@
                     </columns>
                 </TableView>
 
-                <TableView fx:id="pdfResultTable" prefHeight="300" prefWidth="580">
+                <TableView fx:id="pdfResultTable" prefHeight="300" prefWidth="580" styleClass="results-table">
                     <columns>
                         <TableColumn fx:id="pdfRefColumn" text="Référence"/>
                         <TableColumn fx:id="pdfNomFichierColumn" text="Nom du fichier"/>
                         <TableColumn fx:id="pdfActionColumn" text="Télécharger"/>
                     </columns>
                 </TableView>
+
 
             </StackPane>
 
