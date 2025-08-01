@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.demo.demo.controller.NavbarController"
+            styleClass="navbar"
+            stylesheets="@css/navbar.css"
+            prefHeight="60">
+
+    <!-- Titre fixé à gauche -->
+    <left>
+        <Label text="KitChiffre" styleClass="app-name-label" BorderPane.alignment="CENTER_LEFT" />
+    </left>
+
+    <!-- Boutons centrés -->
+    <center>
+        <HBox spacing="30" alignment="CENTER">
+            <Button fx:id="homeButton" styleClass="navbar-button" text="Accueil"/>
+            <Button fx:id="addFileButton" styleClass="navbar-button" text="Gérer les Fichiers"/>
+            <Button fx:id="searchButton" styleClass="navbar-button" text="Accéder aux Données"/>
+            <Button fx:id="addFileManuelButton" styleClass="navbar-button" text="Saisie Manuelle"/>
+        </HBox>
+    </center>
+
+</BorderPane>

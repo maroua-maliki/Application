@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.demo.demo.controller.HomeController"
+            stylesheets="@css/home.css">
+
+    <top>
+        <fx:include source="navbar.fxml"/>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="scroll-pane">
+
+            <!-- Creative Features Grid -->
+            <VBox styleClass="creative-features-section" spacing="30">
+                <VBox alignment="CENTER" spacing="15" styleClass="section-header">
+                    <Label text="Fonctionnalités Principales" styleClass="creative-section-title"/>
+                    <Label text="Outils puissants pour optimiser votre chiffrage"
+                           styleClass="creative-section-subtitle" wrapText="true" maxWidth="500"/>
+                    <Rectangle width="80" height="3" styleClass="section-underline"/>
+                </VBox>
+
+                <!-- Organized Feature Cards -->
+                <HBox spacing="25" alignment="CENTER" styleClass="features-grid">
+                    <!-- Import Feature -->
+                    <VBox styleClass="modern-feature-card" spacing="20" alignment="CENTER">
+                        <StackPane styleClass="modern-icon-container">
+                            <Circle radius="40" styleClass="modern-icon-bg modern-bg-1" style="-fx-fill: #2E86C1;"/>
+                            <FontIcon iconLiteral="bi-cloud-upload" styleClass="hero-icon"/>
+                        </StackPane>
+                        <VBox alignment="CENTER" spacing="10">
+                            <Label text="Gérer les Fichiers" styleClass="modern-feature-title"/>
+                            <Label text="Importez vos fichiers Excel et PDF facilement"
+                                   styleClass="modern-feature-description" wrapText="true" maxWidth="230"/>
+                        </VBox>
+                        <Button fx:id="importButton" text="Gérer les Fichiers" styleClass="modern-feature-button" onAction="#onImportButtonClick"/>
+                    </VBox>
+
+                    <!-- Search Feature -->
+                    <VBox styleClass="modern-feature-card" spacing="20" alignment="CENTER">
+                        <StackPane styleClass="modern-icon-container">
+                            <Circle radius="40" styleClass="modern-icon-bg modern-bg-2" style="-fx-fill: #4A90E2;"/>
+                            <FontIcon iconLiteral="bi-search" styleClass="search-hero-icon"/>
+                        </StackPane>
+                        <VBox alignment="CENTER" spacing="10">
+                            <Label text="Accéder aux Données" styleClass="modern-feature-title"/>
+                            <Label text="Trouvez vos données rapidement et efficacement"
+                                   styleClass="modern-feature-description" wrapText="true" maxWidth="230"/>
+                        </VBox>
+                        <Button fx:id="searchButton" text="Accéder aux Données" styleClass="modern-feature-button" onAction="#onSearchButtonClick"/>
+                    </VBox>
+
+                    <!-- Manual Entry Feature -->
+                    <VBox styleClass="modern-feature-card" spacing="20" alignment="CENTER">
+                        <StackPane styleClass="modern-icon-container">
+                            <Circle radius="40" styleClass="modern-icon-bg modern-bg-3" style="-fx-fill: #5DADE2;"/>
+                            <FontIcon iconLiteral="bi-pencil-square" styleClass="manuel-hero-icon"/>
+                        </StackPane>
+                        <VBox alignment="CENTER" spacing="10">
+                            <Label text="Saisie Manuelle" styleClass="modern-feature-title"/>
+                            <Label text="Créez et modifiez vos données facilement"
+                                   styleClass="modern-feature-description" wrapText="true" maxWidth="230"/>
+                        </VBox>
+                        <Button fx:id="analyzeButton" text="Saisie Manuelle" styleClass="modern-feature-button" onAction="#onAnalyzeButtonClick"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+
+        </ScrollPane>
+    </center>
+</BorderPane>
