@@ -48,12 +48,17 @@ public class AddFileController {
 
     @FXML
     protected void onAddButtonClick() {
+        // Réinitialise le message à chaque clic
+        Text.setText("");
+        Text.setStyle("");
+
+        // Affiche le spinner
+        loadingSpinner.setVisible(true);
+        spinnerAnimation.play();
+
         String filePath = filePathField.getText();
 
         if (filePath != null && !filePath.isEmpty()) {
-            loadingSpinner.setVisible(true);
-            spinnerAnimation.play();
-
             new Thread(() -> {
                 try {
                     String result = addFileService.saveFichierVersBD(filePath);
@@ -74,10 +79,12 @@ public class AddFileController {
                     });
                 }
             }).start();
-
         } else {
+            loadingSpinner.setVisible(false);
+            spinnerAnimation.stop();
             Text.setText("Aucun fichier sélectionné.");
             Text.setStyle("-fx-text-fill: red;");
         }
     }
+
 }
