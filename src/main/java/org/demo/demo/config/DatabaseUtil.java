@@ -1,20 +1,38 @@
 package org.demo.demo.config;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class DatabaseUtil {
 
-    private static final String URL = "jdbc:mysql://localhost:3306/projet?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8";
-    private static final String USER = "root";
-    private static final String PASSWORD = "";
+    private static String URL;
+    private static String USER;
+    private static String PASSWORD;
 
     static {
-        try {
+        try (InputStream input = DatabaseUtil.class.getClassLoader().getResourceAsStream("application.properties")) {
+            Properties prop = new Properties();
+
+            if (input == null) {
+                System.err.println("Le fichier application.properties est introuvable !");
+                throw new RuntimeException("Impossible de trouver application.properties");
+            }
+
+            prop.load(input);
+
+            URL = prop.getProperty("db.url");
+            USER = prop.getProperty("db.user");
+            PASSWORD = prop.getProperty("db.password");
+
             Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
+
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
+            throw new RuntimeException("Erreur lors du chargement de la configuration DB", e);
         }
     }
 

@@ -231,7 +231,21 @@ public class RechercheController {
     @FXML
     private void onSearchClicked() {
         String keyword = searchField.getText();
+
+        if (keyword == null || keyword.trim().isEmpty()) {
+            // Masquer les tableaux de résultats
+            resultTable.setVisible(false);
+            pdfResultTable.setVisible(false);
+            pdfManuelResultTable.setVisible(false);
+
+            // Afficher un message d'erreur dans le label ou via une alerte
+            noResultLabel.setText("Veuillez saisir un mot-clé de recherche.");
+            noResultLabel.setVisible(true);
+            return; // Ne pas lancer la recherche
+        }
+
         String type = typeComboBox.getValue();
+        loadingLabel.setVisible(true);
 
         loadingLabel.setVisible(true);
 
