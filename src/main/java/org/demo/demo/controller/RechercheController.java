@@ -233,36 +233,30 @@ public class RechercheController {
         String keyword = searchField.getText();
 
         if (keyword == null || keyword.trim().isEmpty()) {
-            // Masquer les tableaux de résultats
+            // Champ vide → ne pas lancer la recherche
             resultTable.setVisible(false);
             pdfResultTable.setVisible(false);
             pdfManuelResultTable.setVisible(false);
 
-            // Afficher un message d'erreur dans le label ou via une alerte
             noResultLabel.setText("Veuillez saisir un mot-clé de recherche.");
             noResultLabel.setVisible(true);
-            return; // Ne pas lancer la recherche
+            return;
         }
 
         String type = typeComboBox.getValue();
         loadingLabel.setVisible(true);
-
-        loadingLabel.setVisible(true);
+        noResultLabel.setVisible(false); // au cas où il était visible précédemment
 
         Task<Void> task = new Task<>() {
             List<ProduitExcel> results;
             List<PdfExtrait> pdfResults;
-            //manuel
             List<ProduitPdfManuel> pdfManuelResults;
-
 
             @Override
             protected Void call() {
                 results = recherchService.rechercherProduitsParDescription(keyword);
                 pdfResults = recherchService.rechercherDansExtraitsPDF(keyword);
-                //manuel
                 pdfManuelResults = recherchService.rechercherProduitsPdfDepuisBase(keyword);
-
                 return null;
             }
 
@@ -272,15 +266,20 @@ public class RechercheController {
                 pdfResultTable.setItems(FXCollections.observableArrayList(pdfResults));
                 pdfManuelResultTable.setItems(FXCollections.observableArrayList(pdfManuelResults));
 
+                boolean hasExcel = !results.isEmpty();
+                boolean hasPdf = !pdfResults.isEmpty();
+                boolean hasPdfManuel = !pdfManuelResults.isEmpty();
 
-                if (!results.isEmpty()) {
-                    resultTable.setVisible(true);
-                    pdfResultTable.setVisible(false);
-                    //manuel
-                    pdfManuelResultTable.setVisible(false);
+                resultTable.setVisible(hasExcel);
+                pdfResultTable.setVisible(hasPdf);
+                pdfManuelResultTable.setVisible(hasPdfManuel);
 
-                    noResultLabel.setVisible(false);
+                if (!hasExcel && !hasPdf && !hasPdfManuel) {
+                    noResultLabel.setText("Aucun résultat trouvé.");
+                    noResultLabel.setVisible(true);
+                }
 
+                if (hasExcel) {
                     switch (type) {
                         case "Proto" -> {
                             protoColumn.setVisible(true);
@@ -295,33 +294,16 @@ public class RechercheController {
                             serieColumn.setVisible(true);
                         }
                     }
-
                     ajusterLargeurColonnes();
-                } else if (!pdfResults.isEmpty()) {
-                    resultTable.setVisible(false);
-                    pdfResultTable.setVisible(true);
-                    //manuel
-                    pdfManuelResultTable.setVisible(false);
+                }
 
-                    noResultLabel.setVisible(false);
+                if (hasPdf) {
                     ajusterLargeurColonnesPdf();
-
-                    // Forcer le rafraîchissement pour que la colonne référence mette à jour sa valeur
                     pdfResultTable.refresh();
+                }
 
-                } else if (!pdfManuelResults.isEmpty()) {
-                    resultTable.setVisible(false);
-                    pdfResultTable.setVisible(false);
-                    //manuel
-                    pdfManuelResultTable.setVisible(true);
-                    noResultLabel.setVisible(false); // Masquer le message
+                if (hasPdfManuel) {
                     ajusterLargeurColonnesManuel();
-                }else {
-                    resultTable.setVisible(false);
-                    pdfResultTable.setVisible(false);
-                    pdfManuelResultTable.setVisible(false);
-
-                    noResultLabel.setVisible(true);
                 }
 
                 loadingLabel.setVisible(false);
@@ -336,4 +318,5 @@ public class RechercheController {
 
         new Thread(task).start();
     }
+
 }

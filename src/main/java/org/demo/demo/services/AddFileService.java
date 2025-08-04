@@ -49,7 +49,11 @@ public class AddFileService {
 
 
     public String saveFichierVersBD(String filePath) throws Exception {
-        String nomFichier = new File(filePath).getName();
+        File file = new File(filePath);
+        String nomComplet = file.getName();
+        String nomFichier = nomComplet.contains(".")
+                ? nomComplet.substring(0, nomComplet.lastIndexOf('.'))
+                : nomComplet;
         String extension = getExtension(filePath);
 
         if (fichierDAO.existsByFilename(nomFichier)) {
