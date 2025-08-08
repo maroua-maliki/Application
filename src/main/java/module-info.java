@@ -10,6 +10,7 @@ module org.demo.demo {
     requires java.desktop;
     requires tess4j;
     requires org.apache.commons.io;
+    requires jbcrypt;
 
 
     opens org.demo.demo to javafx.fxml;

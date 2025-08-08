@@ -48,13 +48,11 @@ public class ExcelReaderService {
                     Cell col1, col2, col3, col4;
 
                     if (extension.equals("xlsm")) {
-                        // Colonnes A, B, C, F
                         col1 = row.getCell(0);
                         col2 = row.getCell(1);
                         col3 = row.getCell(2);
                         col4 = row.getCell(5);
                     } else {
-                        // Colonnes par défaut
                         col1 = row.getCell(0);
                         col2 = row.getCell(1);
                         col3 = row.getCell(148);

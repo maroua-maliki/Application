@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.demo.demo.controller.LoginController" stylesheets="@css/login.css">
+    <children>
+        <VBox alignment="CENTER" spacing="15" AnchorPane.topAnchor="50.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" styleClass="upload-card">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <Label text="Connexion" styleClass="upload-title"/>
+
+            <TextField fx:id="usernameField" promptText="Nom d'utilisateur" maxWidth="200" styleClass="modern-file-field"/>
+            <PasswordField fx:id="passwordField" promptText="Mot de passe" maxWidth="200" styleClass="modern-file-field"/>
+
+            <Button text="Se connecter" onAction="#handleLogin" maxWidth="200" styleClass="primary-button"/>
+        </VBox>
+    </children>
+</AnchorPane>
