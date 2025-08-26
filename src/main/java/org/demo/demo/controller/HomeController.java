@@ -6,16 +6,24 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.demo.demo.entities.Utilisateur;
 
 import java.io.IOException;
 
 public class HomeController {
 
+    @FXML
+    private BorderPane root;
+    @FXML
+    private Pane navbarInclude;
 
     @FXML
     private Button importButton;
@@ -26,45 +34,60 @@ public class HomeController {
     @FXML
     private Button analyzeButton;
 
+    @FXML
+    private Button empButton;
+
+    @FXML
+    private VBox adminFeatureCard;
+    @FXML
+    private Button emppButton;
+
+    private Utilisateur user;
 
 
     @FXML
     public void initialize() {
+        adminFeatureCard.setVisible(false);
+        adminFeatureCard.setManaged(false);
+    }
+    public void setUser(Utilisateur user) {
+        this.user = user;
+        FXMLLoader loader = (FXMLLoader) navbarInclude.getProperties().get("FXMLLoader");
+        if (loader != null) {
+            NavbarController navbarController = loader.getController();
+            if (navbarController != null) {
+                navbarController.setUser(user); // transmet l'utilisateur au Navbar
+            }
+        }
+
+        if (user != null && "ADMIN".equalsIgnoreCase(user.getRole())) {
+            adminFeatureCard.setVisible(true);
+            adminFeatureCard.setManaged(true);
+        } else {
+            adminFeatureCard.setVisible(false);
+            adminFeatureCard.setManaged(false);
+        }
 
     }
+    @FXML
+    private void onManageEmployeesClick() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/demo/demo/manageEmployees.fxml"));
+            Parent root = loader.load();
 
+            Stage stage = (Stage) empButton.getScene().getWindow();
+            // Maintenir la taille constante de 890x600
+            Scene scene = new Scene(root, 890, 600);
+            stage.setScene(scene);
+            stage.setTitle("Gérer les Employés");
+            stage.show();
 
-    private void createFloatingAnimation(Circle circle, double duration, double distance) {
-        if (circle != null) {
-            TranslateTransition translateTransition = new TranslateTransition(Duration.millis(duration), circle);
-            translateTransition.setByY(distance);
-            translateTransition.setAutoReverse(true);
-            translateTransition.setCycleCount(Timeline.INDEFINITE);
-            translateTransition.setInterpolator(Interpolator.EASE_BOTH);
-            translateTransition.play();
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 
-    private void createRotationAnimation(javafx.scene.Node node, double duration) {
-        if (node != null) {
-            RotateTransition rotateTransition = new RotateTransition(Duration.millis(duration), node);
-            rotateTransition.setByAngle(360);
-            rotateTransition.setCycleCount(Timeline.INDEFINITE);
-            rotateTransition.setInterpolator(Interpolator.LINEAR);
-            rotateTransition.play();
-        }
-    }
 
-    @FXML
-    private void onStartButtonClick() {
-        navigateToAddFile();
-    }
-
-    @FXML
-    private void onLearnMoreButtonClick() {
-        // Could open a help dialog or documentation
-        System.out.println("Learn more clicked - could open help documentation");
-    }
 
     @FXML
     private void onImportButtonClick() {
@@ -87,7 +110,8 @@ public class HomeController {
             Parent root = loader.load();
 
             Stage stage = (Stage) importButton.getScene().getWindow();
-            Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
+            // Maintenir la taille constante de 890x600
+            Scene scene = new Scene(root, 890, 600);
             stage.setScene(scene);
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -100,7 +124,8 @@ public class HomeController {
             Parent root = loader.load();
 
             Stage stage = (Stage) searchButton.getScene().getWindow();
-            Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
+            // Maintenir la taille constante de 890x600
+            Scene scene = new Scene(root, 890, 600);
             stage.setScene(scene);
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -113,10 +138,12 @@ public class HomeController {
             Parent root = loader.load();
 
             Stage stage = (Stage) analyzeButton.getScene().getWindow();
-            Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
+            // Maintenir la taille constante de 890x600
+            Scene scene = new Scene(root, 890, 600);
             stage.setScene(scene);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
+
 }

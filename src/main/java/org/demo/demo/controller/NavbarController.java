@@ -4,11 +4,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.paint.Color;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.kordamp.ikonli.bootstrapicons.BootstrapIcons;
-import org.kordamp.ikonli.javafx.FontIcon;
+import org.demo.demo.entities.Utilisateur;
+import org.demo.demo.session.UserSession;
 
 import java.io.IOException;
 
@@ -28,17 +27,40 @@ public class NavbarController {
     private Button addFileManuelButton;
 
     @FXML
+    private Button emppButton;
+
+    @FXML
+    private Button logoutButton;
+
+    private Utilisateur user;
+
+
+    @FXML
     public void initialize() {
-        FontIcon menuIcon = new FontIcon(BootstrapIcons.LIST);
-        menuIcon.setIconSize(24);
-        menuIcon.setIconColor(Color.WHITE);
+        // Vérifier la session utilisateur et masquer le bouton si nécessaire
+        Utilisateur currentUser = UserSession.getInstance().getCurrentUser();
+        if (currentUser == null || !"ADMIN".equalsIgnoreCase(currentUser.getRole())) {
+            emppButton.setVisible(false);
+        } else {
+            emppButton.setVisible(true);
+        }
+
+        // Configuration des actions des boutons
         homeButton.setOnAction(e -> {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/demo/demo/home.fxml"));
                 Parent root = loader.load();
 
+                // Récupérer l'utilisateur de la session et le transmettre au HomeController
+                HomeController homeController = loader.getController();
+                Utilisateur sessionUser = UserSession.getInstance().getCurrentUser();
+                if (sessionUser != null) {
+                    homeController.setUser(sessionUser);
+                }
+
                 Stage stage = (Stage) homeButton.getScene().getWindow();
-                Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
+                // Maintenir la taille constante de 890x600
+                Scene scene = new Scene(root, 890, 600);
                 stage.setScene(scene);
             } catch (IOException ex) {
                 ex.printStackTrace();
@@ -51,7 +73,8 @@ public class NavbarController {
                 Parent root = loader.load();
 
                 Stage stage = (Stage) addFileButton.getScene().getWindow();
-                Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
+                // Maintenir la taille constante de 890x600
+                Scene scene = new Scene(root, 890, 600);
                 stage.setScene(scene);
             } catch (IOException ex) {
                 ex.printStackTrace();
@@ -64,7 +87,8 @@ public class NavbarController {
                 Parent root = loader.load();
 
                 Stage stage = (Stage) searchButton.getScene().getWindow();
-                Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
+                // Maintenir la taille constante de 890x600
+                Scene scene = new Scene(root, 890, 600);
                 stage.setScene(scene);
             } catch (IOException ex) {
                 ex.printStackTrace();
@@ -76,13 +100,60 @@ public class NavbarController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/demo/demo/addFileManuel.fxml"));
                 Parent root = loader.load();
 
-                Stage stage = (Stage) addFileManuelButton.getScene().getWindow(); // corrigé : c'était searchButton avant
-                Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
+                Stage stage = (Stage) addFileManuelButton.getScene().getWindow();
+                // Maintenir la taille constante de 890x600
+                Scene scene = new Scene(root, 890, 600);
                 stage.setScene(scene);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         });
+
+        // Action pour le bouton de déconnexion
+        logoutButton.setOnAction(e -> {
+            try {
+                // Effacer la session utilisateur
+                UserSession.getInstance().clearSession();
+
+                // Rediriger vers la page de connexion
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/demo/demo/login.fxml"));
+                Parent root = loader.load();
+
+                Stage stage = (Stage) logoutButton.getScene().getWindow();
+                // Maintenir la taille constante de 890x600
+                Scene scene = new Scene(root, 890, 600);
+                stage.setScene(scene);
+                stage.setTitle("Connexion - KitChiffre");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        // Action pour le bouton de gestion des employés
+        emppButton.setOnAction(e -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/demo/demo/manageEmployees.fxml"));
+                Parent root = loader.load();
+
+                Stage stage = (Stage) emppButton.getScene().getWindow();
+                // Maintenir la taille constante de 890x600
+                Scene scene = new Scene(root, 890, 600);
+                stage.setScene(scene);
+                stage.setTitle("Gérer les Employés");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+    }
+    public void setUser(Utilisateur user) {
+        this.user = user;
+
+        if (user != null && "ADMIN".equalsIgnoreCase(user.getRole())) {
+            emppButton.setVisible(true);
+        } else {
+            emppButton.setVisible(false);
+        }
+
     }
 
 }

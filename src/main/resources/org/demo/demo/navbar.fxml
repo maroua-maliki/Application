@@ -16,12 +16,18 @@
 
     <!-- Boutons centrés -->
     <center>
-        <HBox spacing="30" alignment="CENTER">
+        <HBox spacing="15" alignment="CENTER">
             <Button fx:id="homeButton" styleClass="navbar-button" text="Accueil"/>
-            <Button fx:id="addFileButton" styleClass="navbar-button" text="Gérer les Fichiers"/>
-            <Button fx:id="searchButton" styleClass="navbar-button" text="Accéder aux Données"/>
-            <Button fx:id="addFileManuelButton" styleClass="navbar-button" text="Saisie Manuelle"/>
+            <Button fx:id="addFileButton" styleClass="navbar-button" text="Fichiers"/>
+            <Button fx:id="searchButton" styleClass="navbar-button" text="Données"/>
+            <Button fx:id="addFileManuelButton" styleClass="navbar-button" text="Saisie"/>
+            <Button fx:id="emppButton" styleClass="navbar-button" text="Employés"/>
         </HBox>
     </center>
+
+    <!-- Bouton de déconnexion à droite -->
+    <right>
+        <Button fx:id="logoutButton" styleClass="logout-icon-button" text="⟶" BorderPane.alignment="CENTER_RIGHT" />
+    </right>
 
 </BorderPane>

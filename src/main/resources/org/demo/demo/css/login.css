@@ -1,67 +1,47 @@
-.upload-card {
+/* Design de connexion simple et propre */
+
+.login-card {
     -fx-background-color: white;
-    -fx-padding: 20;  /* réduit le padding pour plus d'espace */
-    -fx-background-radius: 20;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 25, 0.4, 0, 10);
-    -fx-max-width: 280;
-    -fx-min-width: 280;
-    -fx-alignment: center;
-    -fx-spacing: 20;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 15, 0, 0, 5);
+    -fx-max-width: 350;
+    -fx-min-width: 350;
 }
 
-.modern-file-field {
-    -fx-pref-width: 280; /* un peu plus large */
-    -fx-font-size: 15px;
-    -fx-border-radius: 12;
-    -fx-background-radius: 12;
-    -fx-border-color: #d1d9e6;
-    -fx-border-width: 2;
-    -fx-padding: 14 18;
-    -fx-background-color: #f4f7fb;
-    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-    -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);
-    -fx-transition: border-color 0.3s ease, background-color 0.3s ease;
-}
-
-/* Title style */
-.upload-title {
+.title {
     -fx-font-size: 28px;
-    -fx-font-weight: 700;
-    -fx-text-fill: #34495e;
-    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 1, 0, 0, 1);
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
 }
 
-
-.modern-file-field:focused {
-    -fx-border-color: #2980b9;
-    -fx-background-color: white;
-    -fx-effect: dropshadow(gaussian, rgba(41, 128, 185, 0.4), 8, 0, 0, 0);
+.input {
+    -fx-pref-width: 300;
+    -fx-font-size: 14px;
+    -fx-padding: 12;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
 }
 
-/* Button style */
-.primary-button {
-    -fx-background-color: linear-gradient(to bottom, #2980b9, #3498db);
+.input:focused {
+    -fx-border-color: #4A90E2;
+    -fx-border-width: 2;
+}
+
+.button {
+    -fx-background-color: #4A90E2;
     -fx-text-fill: white;
     -fx-font-size: 16px;
-    -fx-font-weight: 700;
-    -fx-padding: 16 28;
-    -fx-background-radius: 30;
+    -fx-font-weight: bold;
+    -fx-padding: 12;
+    -fx-background-radius: 5;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(41, 128, 185, 0.5), 12, 0, 0, 4);
-    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-    -fx-transition: background-color 0.3s ease, transform 0.2s ease;
+    -fx-pref-width: 300;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
 }
 
-.primary-button:hover {
-    -fx-background-color: linear-gradient(to bottom, #3498db, #5dade2);
-    -fx-effect: dropshadow(gaussian, rgba(52, 152, 219, 0.7), 16, 0, 0, 6);
-    -fx-scale-x: 1.05;
-    -fx-scale-y: 1.05;
-}
-
-.primary-button:pressed {
-    -fx-scale-x: 0.95;
-    -fx-scale-y: 0.95;
-    -fx-effect: dropshadow(gaussian, rgba(41, 128, 185, 0.8), 8, 0, 0, 2);
+.button:hover {
+    -fx-background-color: #3498db;
 }

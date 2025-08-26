@@ -1,6 +1,5 @@
 package org.demo.demo.controller;
 
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,7 +12,7 @@ import org.demo.demo.config.DatabaseUtil;
 import org.demo.demo.dao.UtilisateurDAO;
 import org.demo.demo.entities.Utilisateur;
 import org.demo.demo.services.AuthService;
-
+import org.demo.demo.session.UserSession;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -44,8 +43,9 @@ public class LoginController {
         String username = usernameField.getText().trim();
         String password = passwordField.getText();
 
+        // Vérification email
         if (!username.matches("^[A-Za-z0-9._%+-]+@capgemini\\.com$")) {
-            showAlert("Erreur", "L'adresse e-mail doit se terminer par @cepgemini.com.");
+            showAlert("Erreur", "L'adresse e-mail doit se terminer par @capgemini.com.");
             return;
         }
 
@@ -53,18 +53,19 @@ public class LoginController {
 
         if (userOpt.isPresent()) {
             Utilisateur user = userOpt.get();
+            // Définir l'utilisateur dans la session
+            UserSession.getInstance().setCurrentUser(user);
 
-            // Charger la page d'accueil après connexion réussie
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/demo/demo/home.fxml"));
                 Parent homeView = loader.load();
 
-                // Si tu veux transmettre des infos à HomeController :
-                // HomeController controller = loader.getController();
-                // controller.setUtilisateur(user); // exemple
+                HomeController homeController = loader.getController();
+                homeController.setUser(user);
 
                 Stage stage = (Stage) usernameField.getScene().getWindow();
-                Scene scene = new Scene(homeView);
+                // Préserver la taille de la fenêtre (890x600)
+                Scene scene = new Scene(homeView, 890, 600);
                 stage.setScene(scene);
                 stage.setTitle("Page d'accueil");
                 stage.show();
@@ -76,16 +77,15 @@ public class LoginController {
 
         } else {
             showAlert("Erreur", "Nom d'utilisateur ou mot de passe incorrect.");
+            passwordField.clear(); // vider le mot de passe après un échec
         }
     }
 
-
     private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.ERROR); // ⚡ corrigé : erreur au lieu d’information
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
     }
 }
-

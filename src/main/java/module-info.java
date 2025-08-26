@@ -20,4 +20,8 @@ module org.demo.demo {
     opens org.demo.demo.controller to javafx.fxml;
     exports org.demo.demo.config;
     opens org.demo.demo.config to javafx.fxml;
+    exports org.demo.demo.session;
+    opens org.demo.demo.session to javafx.fxml;
+    exports org.demo.demo.services;
+    opens org.demo.demo.services to javafx.fxml;
 }
