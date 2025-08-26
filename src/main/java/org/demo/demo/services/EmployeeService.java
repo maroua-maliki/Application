@@ -7,10 +7,6 @@ import org.mindrot.jbcrypt.BCrypt;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Service pour la gestion des employés
- * Contient la logique métier pour les opérations CRUD sur les utilisateurs
- */
 public class EmployeeService {
 
     private final UtilisateurDAO utilisateurDAO;
@@ -19,13 +15,7 @@ public class EmployeeService {
         this.utilisateurDAO = utilisateurDAO;
     }
 
-    /**
-     * Ajouter un nouvel employé
-     * @param username nom d'utilisateur
-     * @param password mot de passe en clair
-     * @param role rôle de l'utilisateur (par défaut "user")
-     * @return true si l'ajout a réussi, false sinon
-     */
+
     public boolean addEmployee(String username, String password, String role) {
         // Validation des données
         if (username == null || username.trim().isEmpty()) {
@@ -57,26 +47,15 @@ public class EmployeeService {
         return utilisateurDAO.addUtilisateur(newUser);
     }
 
-    /**
-     * Ajouter un employé avec le rôle par défaut "user"
-     */
     public boolean addEmployee(String username, String password) {
         return addEmployee(username, password, "user");
     }
 
-    /**
-     * Récupérer tous les employés
-     * @return liste de tous les utilisateurs
-     */
+
     public List<Utilisateur> getAllEmployees() {
         return utilisateurDAO.getAllUtilisateurs();
     }
 
-    /**
-     * Supprimer un employé par son ID
-     * @param userId ID de l'utilisateur à supprimer
-     * @return true si la suppression a réussi, false sinon
-     */
     public boolean deleteEmployee(int userId) {
         if (userId <= 0) {
             throw new IllegalArgumentException("L'ID utilisateur doit être positif");
@@ -85,11 +64,7 @@ public class EmployeeService {
         return utilisateurDAO.deleteUtilisateur(userId);
     }
 
-    /**
-     * Supprimer un employé par son nom d'utilisateur
-     * @param username nom d'utilisateur à supprimer
-     * @return true si la suppression a réussi, false sinon
-     */
+
     public boolean deleteEmployeeByUsername(String username) {
         if (username == null || username.trim().isEmpty()) {
             throw new IllegalArgumentException("Le nom d'utilisateur ne peut pas être vide");
@@ -102,13 +77,6 @@ public class EmployeeService {
 
         return false; // Utilisateur non trouvé
     }
-
-    /**
-     * Mettre à jour le mot de passe d'un employé
-     * @param username nom d'utilisateur
-     * @param newPassword nouveau mot de passe
-     * @return true si la mise à jour a réussi, false sinon
-     */
     public boolean updateEmployeePassword(String username, String newPassword) {
         if (username == null || username.trim().isEmpty()) {
             throw new IllegalArgumentException("Le nom d'utilisateur ne peut pas être vide");
@@ -129,14 +97,6 @@ public class EmployeeService {
 
         return false; // Utilisateur non trouvé
     }
-
-    /**
-     * Mettre à jour complètement un employé (nom d'utilisateur et mot de passe)
-     * @param oldUsername ancien nom d'utilisateur
-     * @param newUsername nouveau nom d'utilisateur
-     * @param newPassword nouveau mot de passe
-     * @return true si la mise à jour a réussi, false sinon
-     */
     public boolean updateEmployee(String oldUsername, String newUsername, String newPassword) {
         if (oldUsername == null || oldUsername.trim().isEmpty()) {
             throw new IllegalArgumentException("L'ancien nom d'utilisateur ne peut pas être vide");
@@ -178,11 +138,7 @@ public class EmployeeService {
         return utilisateurDAO.updateUtilisateur(user);
     }
 
-    /**
-     * Rechercher un employé par nom d'utilisateur
-     * @param username nom d'utilisateur à rechercher
-     * @return Optional contenant l'utilisateur s'il existe
-     */
+
     public Optional<Utilisateur> findEmployeeByUsername(String username) {
         if (username == null || username.trim().isEmpty()) {
             return Optional.empty();
@@ -191,19 +147,10 @@ public class EmployeeService {
         return utilisateurDAO.findByUsername(username);
     }
 
-    /**
-     * Compter le nombre total d'employés
-     * @return nombre d'employés
-     */
     public int getEmployeeCount() {
         return getAllEmployees().size();
     }
 
-    /**
-     * Vérifier si un nom d'utilisateur est disponible
-     * @param username nom d'utilisateur à vérifier
-     * @return true si disponible, false si déjà pris
-     */
     public boolean isUsernameAvailable(String username) {
         if (username == null || username.trim().isEmpty()) {
             return false;

@@ -82,11 +82,7 @@ public class UtilisateurDAO {
         return users;
     }
 
-    /**
-     * Mettre à jour un utilisateur
-     * @param user utilisateur à mettre à jour
-     * @return true si la mise à jour a réussi, false sinon
-     */
+
     public boolean updateUtilisateur(Utilisateur user) {
         String query = "UPDATE users SET username = ?, password_hash = ?, role = ? WHERE id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -103,11 +99,6 @@ public class UtilisateurDAO {
         return false;
     }
 
-    /**
-     * Supprimer un utilisateur par son ID
-     * @param userId ID de l'utilisateur à supprimer
-     * @return true si la suppression a réussi, false sinon
-     */
     public boolean deleteUtilisateur(int userId) {
         String query = "DELETE FROM users WHERE id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {

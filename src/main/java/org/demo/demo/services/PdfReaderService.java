@@ -69,10 +69,7 @@ public class PdfReaderService {
         }
     }
 
-    /**
-     * Pour chaque page, extrait d'abord le texte natif, puis fait un OCR.
-     * Combine les deux résultats.
-     */
+
     public String extraireTexteCompletAvecOCR(File fichierPdf) throws IOException, TesseractException {
         PDDocument document = PDDocument.load(fichierPdf);
         PDFRenderer renderer = new PDFRenderer(document);

@@ -2,9 +2,6 @@ package org.demo.demo.session;
 
 import org.demo.demo.entities.Utilisateur;
 
-/**
- * Classe singleton pour gérer la session utilisateur
- */
 public class UserSession {
     private static UserSession instance;
     private Utilisateur currentUser;
