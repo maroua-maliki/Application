@@ -62,6 +62,7 @@ public class NavbarController {
                 // Maintenir la taille constante de 890x600
                 Scene scene = new Scene(root, 890, 600);
                 stage.setScene(scene);
+                stage.setTitle("Page d'Acceuil");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -76,6 +77,7 @@ public class NavbarController {
                 // Maintenir la taille constante de 890x600
                 Scene scene = new Scene(root, 890, 600);
                 stage.setScene(scene);
+                stage.setTitle("Gérer les Fichiers");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -90,6 +92,7 @@ public class NavbarController {
                 // Maintenir la taille constante de 890x600
                 Scene scene = new Scene(root, 890, 600);
                 stage.setScene(scene);
+                stage.setTitle("Accéder aux Données");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -104,6 +107,7 @@ public class NavbarController {
                 // Maintenir la taille constante de 890x600
                 Scene scene = new Scene(root, 890, 600);
                 stage.setScene(scene);
+                stage.setTitle("Saisie Manuelle");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

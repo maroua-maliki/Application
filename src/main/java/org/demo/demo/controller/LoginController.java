@@ -67,7 +67,7 @@ public class LoginController {
                 // Préserver la taille de la fenêtre (890x600)
                 Scene scene = new Scene(homeView, 890, 600);
                 stage.setScene(scene);
-                stage.setTitle("Page d'accueil");
+                stage.setTitle("KitChiffre");
                 stage.show();
 
             } catch (IOException e) {
@@ -77,7 +77,7 @@ public class LoginController {
 
         } else {
             showAlert("Erreur", "Nom d'utilisateur ou mot de passe incorrect.");
-            passwordField.clear(); // vider le mot de passe après un échec
+            passwordField.clear();
         }
     }
 

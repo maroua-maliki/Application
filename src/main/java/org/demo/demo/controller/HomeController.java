@@ -113,6 +113,7 @@ public class HomeController {
             // Maintenir la taille constante de 890x600
             Scene scene = new Scene(root, 890, 600);
             stage.setScene(scene);
+            stage.setTitle("Gérer les fichiers");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -127,6 +128,7 @@ public class HomeController {
             // Maintenir la taille constante de 890x600
             Scene scene = new Scene(root, 890, 600);
             stage.setScene(scene);
+            stage.setTitle("Accéder aux données");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -141,6 +143,7 @@ public class HomeController {
             // Maintenir la taille constante de 890x600
             Scene scene = new Scene(root, 890, 600);
             stage.setScene(scene);
+            stage.setTitle("Saisie Manuelle");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
